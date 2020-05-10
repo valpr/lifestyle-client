@@ -7,6 +7,8 @@ const LoginModal = () => {
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
     //add a handleLogin button here
+    //NEXT TIME, add login functionality from backend.
+    //hold login user with state.
     
 
     return (

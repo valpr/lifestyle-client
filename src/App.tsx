@@ -2,6 +2,7 @@ import React from 'react';
 import LoginModal from './components/login'
 import { Container, Header, Menu } from 'semantic-ui-react'
 import  Entry  from './components/entry'
+import UserStats from './components/stats'
 
 const App: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const App: React.FC = () => {
           secondary
         />
         <LoginModal/>
-
+          <UserStats/>
         <Entry/>
       </Container>
 
