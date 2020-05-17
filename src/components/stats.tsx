@@ -1,5 +1,5 @@
 import React from 'react'
-import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries, LineMarkSeries, VerticalGridLines } from 'react-vis'
+import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,  VerticalGridLines } from 'react-vis'
 import { Card, CardContent, CardDescription, Divider }  from 'semantic-ui-react'
 import '../../node_modules/react-vis/dist/style.css';
 

@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginModal from './components/login'
 import { Container, Header, Menu } from 'semantic-ui-react'
 import  Entry  from './components/entry'
 import UserStats from './components/stats'
+import { useApolloClient, useQuery } from '@apollo/client';
+import { GET_USER } from './queries/queries';
+
 
 const App: React.FC = () => {
+  const [token, setToken] = useState(null)
+
+  const client = useApolloClient()
+
+
+
   return (
     <div className="App">
       <Container style={{marginTop: '3em'}}>
@@ -20,7 +29,7 @@ const App: React.FC = () => {
           pointing
           secondary
         />
-        <LoginModal/>
+        <LoginModal setToken={setToken}/>
           <UserStats/>
         <Entry/>
       </Container>
