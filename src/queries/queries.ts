@@ -11,6 +11,7 @@ export const LOGIN = gql`
    }
 
 `
+// to tests
 export const ADD_USER = gql`
     mutation createUser($firstname: String!, $lastname: String!, $weight: Int!, $gender: Int!, $height: Int!, $effort: Int!, $ objective: Int!){
         addUser(
@@ -27,17 +28,18 @@ export const ADD_USER = gql`
         }
     }
 `
-
-export const GET_USER = gql`
-    query {
+//test GET_SELF using playground first
+export const GET_SELF = gql`
+    query getSelf {
         myUser{
             firstname
             lastname
-            weight
-            entries
             gender
             height
-            weights
+            weights {
+                date
+                weight
+            }
             effort
             objective
         }
@@ -56,7 +58,4 @@ subscription entries{
 }
 `
 
-// export const MY_ENTRIES = gql`
-
-// `
 

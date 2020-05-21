@@ -4,14 +4,15 @@ import { Container, Header, Menu } from 'semantic-ui-react'
 import  Entry  from './components/entry'
 import UserStats from './components/stats'
 import { useApolloClient, useQuery } from '@apollo/client';
-import { GET_USER } from './queries/queries';
+import { GET_SELF } from './queries/queries';
 
 
 const App: React.FC = () => {
   const [token, setToken] = useState(null)
-
   const client = useApolloClient()
 
+  //1. Get User details from server if authenticated
+  //2. display entries
 
 
   return (

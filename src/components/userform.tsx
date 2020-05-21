@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import { Button, Icon, Modal, Input } from 'semantic-ui-react'
+import { useQuery } from '@apollo/client'
+
+
 
 const LoginModal: React.FC = () => {
     const [open, setOpen] = useState(false)
