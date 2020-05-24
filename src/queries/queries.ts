@@ -11,6 +11,14 @@ export const LOGIN = gql`
    }
 
 `
+export const ALL_USER_TEST = gql`
+   query ALL_USERS {
+       allUsers{
+           firstname
+       }
+   }
+`
+
 // to tests
 export const ADD_USER = gql`
     mutation createUser($firstname: String!, $lastname: String!, $weight: Int!, $gender: Int!, $height: Int!, $effort: Int!, $ objective: Int!){
@@ -36,9 +44,14 @@ export const GET_SELF = gql`
             lastname
             gender
             height
-            weights {
+            weights{
                 date
                 weight
+            }
+            entries{
+                description
+                date
+                calories
             }
             effort
             objective

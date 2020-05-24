@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LoginModal from './components/login'
 import { Container, Header, Menu } from 'semantic-ui-react'
 import  Entry  from './components/entry'
 import UserStats from './components/stats'
-import { useApolloClient, useQuery } from '@apollo/client';
-import { GET_SELF } from './queries/queries';
+import { useQuery } from '@apollo/client'
+import { ALL_USER_TEST } from './queries/queries'
+
 
 
 const App: React.FC = () => {
-  const [token, setToken] = useState(null)
-  const client = useApolloClient()
+  const simple = useQuery(ALL_USER_TEST)
 
   //1. Get User details from server if authenticated
   //2. display entries
-
-
+  if (simple.loading){
+    return <div>...loading</div>
+  }
+  else{
+    console.log(simple.data)
+  }
   return (
     <div className="App">
       <Container style={{marginTop: '3em'}}>
@@ -30,7 +34,7 @@ const App: React.FC = () => {
           pointing
           secondary
         />
-        <LoginModal setToken={setToken}/>
+        <LoginModal/>
           <UserStats/>
         <Entry/>
       </Container>

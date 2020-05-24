@@ -20,7 +20,7 @@ enum Effort {
     Extreme = 1.8
   }
 
-  enum Gender {
+ export enum Gender {
     Male = 1,
     Female = 0
 }
@@ -34,7 +34,7 @@ enum Objective {
 export interface user {
     firstname: string;
     lastname: string;
-    entries: [string];
+    entries: [entry];
     gender: Gender;
     height: number;
     weights: [weightEntry];

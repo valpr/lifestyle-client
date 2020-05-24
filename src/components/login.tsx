@@ -7,7 +7,7 @@ import { LOGIN } from '../queries/queries'
 
 
 
-const LoginModal:React.FC<{setToken: any}> = (props) => {
+const LoginModal:React.FC = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [open, setOpen] = useState(false)
@@ -23,7 +23,6 @@ const LoginModal:React.FC<{setToken: any}> = (props) => {
         })
         if (response){
             const token = response.data.Login.value
-            props.setToken(token)
             localStorage.setItem('lifestyleuser-token', token)
         }
         setUsername('')

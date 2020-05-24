@@ -1,56 +1,88 @@
 import React from 'react'
-import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries,  VerticalGridLines } from 'react-vis'
 import { Card, CardContent, CardDescription, Divider }  from 'semantic-ui-react'
 import '../../node_modules/react-vis/dist/style.css';
+import { useQuery} from '@apollo/client'
+import { user, Gender } from '../types'
+import { GET_SELF } from '../queries/queries'
 
-const UserCard: React.FC = () => { //mockup of user stats height, weight TDEE, caloric trend etc
-    //potentially add a graph here of like calories consumed per day
-    //
-    const data= [
-        {x:1, y:1800},
-        {x:2, y:1700},
-        {x:3, y:1600},
-        {x:4, y:1900},
-        {x:5, y:2100},
-        {x:6, y:1500},
-        {x:7, y:2500},
-    ]
-    return (
-        <Card>
-            <Card.Header>
-                Welcome, firstName lastName!
-            </Card.Header>
-            <CardContent>
-                Current weight: 180 <br/>
-                Goal weight: 160
-            </CardContent>
-            <CardDescription>
-                TDEE: 1800 calories <br/>
-                Average Calories consumed this week: 1826
-            </CardDescription> 
-            <Divider></Divider>
-            <CardContent>
-            <XYPlot             
-            height={300} 
-            width={300}
-            style={{fill: 'none'}}
-            color='red'
-            title='Calories consumed over the last 7 days'>
-            
-                <VerticalGridLines/>
-                <HorizontalGridLines/>
-                <XAxis title='Last 7 Days'/>
-                <YAxis title='Calories consumed'/>
-                <LineSeries data={data}/>
-            </XYPlot> 
+interface userDetails {
+    myUser: user
+}
 
-            </CardContent>
+const UserCard: React.FC = () => {
 
 
+    const {loading, data} = useQuery<userDetails>(GET_SELF)
 
+    if (loading){
+        return <div>...loading</div>
+    }
+    if (!data ){//mockup
 
-        </Card>
-    )
+        return (
+            <Card>
+                <Card.Header>
+                    Welcome, Guest Mockup!
+                </Card.Header>
+                <CardContent>
+                    Current weight: 180 <br/>
+                    Goal weight: 160
+                </CardContent>
+                <CardDescription>
+                    TDEE: 1800 calories <br/>
+                    Average Calories consumed this week: 1826
+                </CardDescription> 
+                <Divider></Divider>
+                <CardContent>
+                </CardContent>
+    
+    
+    
+    
+            </Card>
+        )
+    }
+    else{
+        let personal = data.myUser
+        let recentWeight = personal.weights[personal.weights.length-1].weight
+
+        let BMR: number = recentWeight/2.2046*10+ 6.25*personal.height -5.00*23
+        if (personal.gender === Gender.Male){
+            BMR = BMR + 5
+        }
+        else{
+            BMR = BMR -161
+        }
+        let TDEE = personal.objective * personal.effort * BMR
+
+        return (
+            <Card>
+                <Card.Header>
+        Welcome, {personal.firstname} {personal.lastname}!
+                </Card.Header>
+                <CardContent>
+                    Weight: {personal.weights[personal.weights.length-1].weight} <br/>
+                    Height: {personal.height}  <br/>
+                    Objective modifier: {personal.objective}  <br/>
+                    Activity Level modifier: {personal.effort}  <br/>
+                </CardContent>
+                <CardContent>
+                    Calculated TDEE: {Math.round(TDEE)}
+                </CardContent>
+                <CardDescription>
+                    TDEE is calculated as a function of BMR * Objective * Effort
+                </CardDescription> 
+                <Divider></Divider>
+                <CardContent>
+    
+                </CardContent>
+    
+    
+    
+    
+            </Card>
+        )
+    }
 }
 
 export default UserCard
