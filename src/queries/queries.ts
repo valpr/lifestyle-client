@@ -59,6 +59,20 @@ export const GET_SELF = gql`
     }
 `
 
+export const ADD_ENTRY = gql`
+    mutation addEntry($date: String!, $time: Int!, $calories: Int!, $description: String!){
+        AddEntry(
+            date: $date,
+            time: $time,
+            calories: $calories,
+            description: $description
+        ){
+            date
+            time
+            calories
+        }
+    }
+`
 
 export const ENTRY_ADDED = gql`
 subscription entries{
